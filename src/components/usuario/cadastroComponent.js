@@ -19,7 +19,7 @@ function CadastroComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("usuario/addCliente", {
+      const res = await api.post("usuario/criar", {
         nome,
         email,
         senha,
@@ -30,7 +30,9 @@ function CadastroComponent() {
           history("/");
         }, 1000);
       }
+      console.log(res);
     } catch (err) {
+      console.log(err);
       if (err.response && err.response.status === 400) {
         setErrorMessage("Preencha o(s) campo(s) vazio(s)!");
       } else {

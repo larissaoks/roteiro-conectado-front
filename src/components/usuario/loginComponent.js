@@ -18,7 +18,7 @@ function LoginComponent() {
 
     try {
       const res = await api.post(
-        "autenticacao/authCliente",
+        "oauth2/token",
         {},
         {
           headers: {
@@ -27,6 +27,7 @@ function LoginComponent() {
         }
       );
       if (res.status === 200) {
+        console.log("Success");
         localStorage.setItem("token", res.data.token);
         history("/home");
       }

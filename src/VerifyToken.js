@@ -3,7 +3,7 @@ import api from "./service/service";
 export async function verifyToken() {
   try {
     const token = localStorage.getItem("token");
-    const res = await api.get("autenticacao/verifyToken", {
+    const res = await api.get("oauth2/verificaToken", {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (res.status === 200) {
