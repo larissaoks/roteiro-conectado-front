@@ -6,16 +6,14 @@ export async function verifyToken() {
     const res = await api.get("oauth2/verificaToken", {
       headers: { Authorization: `Bearer ${token}` },
     });
+    console.log("verifyToken", res.data, res.status);
     if (res.status === 200) {
-      return {
-        valid_token: res.data.validToken,
-        user: res.data.user,
-      };
+      return res.data;
     } else {
-      return { valid_token: false, user: "" };
+      return res.data;
     }
   } catch (error) {
     localStorage.removeItem("token");
-    return { valid_token: false, user: "" };
+    return false;
   }
 }

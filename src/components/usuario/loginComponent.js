@@ -26,10 +26,11 @@ function LoginComponent() {
           },
         }
       );
-      if (res.status === 200) {
-        console.log("Success");
-        localStorage.setItem("token", res.data.token);
-        history("/home");
+      if (res.status == 200) {
+        localStorage.setItem("token", res.data.Token);
+        setTimeout(() => {
+          history("/home");
+        }, 800);
       }
     } catch (err) {
       if (err.response && err.response.status === 403) {

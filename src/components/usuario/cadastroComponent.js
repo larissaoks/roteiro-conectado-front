@@ -30,9 +30,7 @@ function CadastroComponent() {
           history("/");
         }, 1000);
       }
-      console.log(res);
     } catch (err) {
-      console.log(err);
       if (err.response && err.response.status === 400) {
         setErrorMessage("Preencha o(s) campo(s) vazio(s)!");
       } else {
