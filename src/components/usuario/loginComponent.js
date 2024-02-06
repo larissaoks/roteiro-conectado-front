@@ -26,7 +26,7 @@ function LoginComponent() {
           },
         }
       );
-      if (res.status == 200) {
+      if (res.status === 200) {
         localStorage.setItem("token", res.data.Token);
         setTimeout(() => {
           history("/home");

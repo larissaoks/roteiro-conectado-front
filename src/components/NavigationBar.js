@@ -5,9 +5,9 @@ import { verifyToken } from "../VerifyToken";
 
 function NavigationBar() {
   const history = useNavigate();
-  const [user, setUser] = useState("");
+  //const [user, setUser] = useState("");
 
-  const auth = async () => {
+  /*   const auth = async () => {
     const result = await verifyToken();
     if (result.valid_token) {
       setUser(result.user);
@@ -15,14 +15,14 @@ function NavigationBar() {
       localStorage.removeItem("token");
       history("/");
     }
-  };
+  }; */
 
   function verificaTokenVazio() {
     const token = localStorage.getItem("token");
     if (token === null || token === undefined) {
       return true;
     } else {
-      auth();
+      //auth();
       return false;
     }
   }
@@ -58,7 +58,7 @@ function NavigationBar() {
             </Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="home">Início</Nav.Link>
-              <Nav.Link href="agendamento">Cadastrar Viagem</Nav.Link>
+              <Nav.Link href="cadastroViagem">Cadastrar Viagem</Nav.Link>
             </Nav>
             <Navbar.Toggle />
 
@@ -66,9 +66,7 @@ function NavigationBar() {
               style={{ marginRight: "0.3%" }}
               className="justify-content-end"
             >
-              <Navbar.Text style={{ marginRight: "1%" }}>
-                Bem vindo, {user}
-              </Navbar.Text>
+              <Navbar.Text style={{ marginRight: "1%" }}>Bem vindo</Navbar.Text>
               <Nav.Link onClick={() => deslogar()}>Deslogar</Nav.Link>
             </Navbar.Collapse>
           </>
