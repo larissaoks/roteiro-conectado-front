@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import api from "../../service/service";
-//import { Button, Alert } from "react-bootstrap";
+import { Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../../VerifyToken";
+import { Trash, Search } from "react-bootstrap-icons";
 
 function ListaViagemComponent() {
   const history = useNavigate();
@@ -44,14 +45,28 @@ function ListaViagemComponent() {
         <table className="table table-striped table-bordered">
           <thead>
             <tr>
-              <th> Serviço</th>
-              <th> Profissional</th>
-              <th> Data</th>
-              <th> Hora</th>
-              <th> Valor</th>
+              <th> Destino</th>
+              <th> Início</th>
+              <th> Fim</th>
+              <th>Detalhe</th>
+              <th>Deletar</th>
             </tr>
           </thead>
-          <tbody>{listaViagem.map((list) => console.log(list))}</tbody>
+          <tbody>
+            {listaViagem.map((list) => (
+              <tr key={list.idViagem}>
+                <td>{list.destino}</td>
+                <td>{list.dteInicio}</td>
+                <td>{list.dteFim}</td>
+                <td>
+                  <Search size={24} />
+                </td>
+                <td>
+                  <Trash size={24} color="red" />
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>

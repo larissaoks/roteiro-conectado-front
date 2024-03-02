@@ -8,14 +8,14 @@ function CadastroViagemComponent() {
   const history = useNavigate();
 
   const [destino, setDestino] = useState("");
-  const [dteInicio, setDteInicio] = useState("");
-  const [dteFim, setDteFim] = useState("");
+  const [dtInicio, setDtInicio] = useState("");
+  const [dtFim, setDtFim] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
 
   const onChangeDestino = (e) => setDestino(e.target.value);
-  const onChangeDteInicio = (e) => setDteInicio(e.target.value);
-  const onChangeDteFim = (e) => setDteFim(e.target.value);
+  const onChangeDtInicio = (e) => setDtInicio(e.target.value);
+  const onChangeDtFim = (e) => setDtFim(e.target.value);
 
   useEffect(() => {
     const auth = async () => {
@@ -31,14 +31,15 @@ function CadastroViagemComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
+    console.log(token, destino, dtInicio, dtFim);
     try {
       const res = await api.post(
         "viagem/criar",
         {
           token,
           destino,
-          dteInicio,
-          dteFim,
+          dtInicio,
+          dtFim,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -51,6 +52,7 @@ function CadastroViagemComponent() {
         }, 1000);
       }
     } catch (err) {
+      console.log(err);
       if (err.response && err.response.status === 400) {
         setErrorMessage("Preencha o(s) campo(s) vazio(s)!");
       } else {
@@ -83,21 +85,21 @@ function CadastroViagemComponent() {
             onChange={onChangeDestino}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicDteInicio">
           <Form.Label>Data de Início</Form.Label>
           <Form.Control
-            value={dteInicio}
-            onChange={onChangeDteInicio}
+            value={dtInicio}
+            onChange={onChangeDtInicio}
             type="date"
             placeholder="YYYY-MM-DD"
             min={new Date().toLocaleDateString()}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicDteFim">
           <Form.Label>Data de Fim</Form.Label>
           <Form.Control
-            value={dteFim}
-            onChange={onChangeDteFim}
+            value={dtFim}
+            onChange={onChangeDtFim}
             type="date"
             placeholder="YYYY-MM-DD"
             min={new Date().toLocaleDateString()}

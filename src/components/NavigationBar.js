@@ -5,24 +5,20 @@ import { verifyToken } from "../VerifyToken";
 
 function NavigationBar() {
   const history = useNavigate();
-  //const [user, setUser] = useState("");
-
-  /*   const auth = async () => {
+  const auth = async () => {
     const result = await verifyToken();
-    if (result.valid_token) {
-      setUser(result.user);
-    } else {
+    if (!result) {
       localStorage.removeItem("token");
       history("/");
     }
-  }; */
+  };
 
   function verificaTokenVazio() {
     const token = localStorage.getItem("token");
     if (token === null || token === undefined) {
       return true;
     } else {
-      //auth();
+      auth();
       return false;
     }
   }

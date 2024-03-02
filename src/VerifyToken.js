@@ -6,12 +6,7 @@ export async function verifyToken() {
     const res = await api.get("oauth2/verificaToken", {
       headers: { Authorization: `Bearer ${token}` },
     });
-
-    if (res.status === 200) {
-      return res.data;
-    } else {
-      return res.data;
-    }
+    return res.data;
   } catch (error) {
     localStorage.removeItem("token");
     return false;
