@@ -8,8 +8,8 @@ import { Trash, Search } from "react-bootstrap-icons";
 function ListaViagemComponent() {
   const history = useNavigate();
   const [listaViagem, setListaViagem] = useState([]);
-  /*const [errorMessage, setErrorMessage] = useState(null);
-  const [message, setMessage] = useState(null);*/
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     const auth = async () => {
@@ -20,7 +20,7 @@ function ListaViagemComponent() {
       }
     };
     auth();
-  }, []);
+  });
 
   useEffect(() => {
     const getViagens = async () => {
@@ -35,13 +35,35 @@ function ListaViagemComponent() {
     getViagens();
   }, []);
 
+  async function deletarViagem(idViagem) {
+    try {
+      const res = await api.delete("viagem/deletar/" + idViagem);
+      if (res.status === 200) {
+        setListaViagem([...listaViagem]);
+        setMessage("Viagem excluída com sucesso!");
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 204) {
+        setErrorMessage("Erro ao excluir viagem.");
+      } else {
+        setErrorMessage(
+          "Erro interno do servidor. Contate o Administrador da página"
+        );
+      }
+    }
+  }
+
+  async function detalheViagem(idViagem) {
+    history("/detalheViagem", { state: { idViagem } });
+  }
+
   return (
     <div>
       <h1>Minhas Viagens</h1>
       <br></br>
       <div className="row">
-        {/* {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
-        {message && <Alert variant={"success"}>{message}</Alert>} */}
+        {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
+        {message && <Alert variant={"success"}>{message}</Alert>}
         <table className="table table-striped table-bordered">
           <thead>
             <tr>
@@ -59,10 +81,17 @@ function ListaViagemComponent() {
                 <td>{list.dteInicio}</td>
                 <td>{list.dteFim}</td>
                 <td>
-                  <Search size={24} />
+                  <Search
+                    size={24}
+                    onClick={() => detalheViagem(list.idViagem)}
+                  />
                 </td>
                 <td>
-                  <Trash size={24} color="red" />
+                  <Trash
+                    size={24}
+                    color="red"
+                    onClick={() => deletarViagem(list.idViagem)}
+                  />
                 </td>
               </tr>
             ))}
