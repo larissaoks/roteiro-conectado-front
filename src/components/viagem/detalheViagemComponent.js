@@ -8,9 +8,10 @@ function DetalheViagemComponent() {
   const history = useNavigate();
   const location = useLocation();
 
-  const [viagem, setviagem] = useState("");
+  const [viagem, setViagem] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const auth = async () => {
@@ -26,10 +27,12 @@ function DetalheViagemComponent() {
   useEffect(() => {
     const id = location.state.idViagem;
     const getViagem = async () => {
-      //const token = localStorage.getItem("token");
-      const res = await api.get("viagem/" + id);
+      const res = await api.get("viagem/" + id, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (res.status === 200) {
-        setviagem(res.data.Viagem);
+        setViagem(res.data.Viagem);
+        console.log(viagem);
       }
     };
     getViagem();
@@ -56,7 +59,22 @@ function DetalheViagemComponent() {
         {message && <Alert variant={"success"}>{message}</Alert>}
 
         <Card>
-          <Card.Body>{viagem}</Card.Body>
+          <Card.Body>Destino: {viagem.destino}</Card.Body>
+          <Card.Body>
+            Início: {viagem.dteInicio} / Fim: {viagem.dteFim}
+          </Card.Body>
+        </Card>
+        <Card>
+          <Card.Body>Hospedagem</Card.Body>
+          <Card.Body>{viagem.hospedagems}</Card.Body>
+        </Card>
+        <Card>
+          <Card.Body>Roteiro</Card.Body>
+          <Card.Body>{viagem.roteiro}</Card.Body>
+        </Card>
+        <Card>
+          <Card.Body>Passagem</Card.Body>
+          <Card.Body>{viagem.passagems}</Card.Body>
         </Card>
       </Form>
     </div>

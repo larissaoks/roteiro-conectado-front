@@ -36,7 +36,6 @@ function CadastroViagemComponent() {
       const res = await api.post(
         "viagem/criar",
         {
-          token,
           destino,
           dtInicio,
           dtFim,

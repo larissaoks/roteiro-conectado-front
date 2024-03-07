@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../service/service";
-import { Button, Alert } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../../VerifyToken";
 import { Trash, Search } from "react-bootstrap-icons";
@@ -10,6 +10,7 @@ function ListaViagemComponent() {
   const [listaViagem, setListaViagem] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const auth = async () => {
@@ -24,7 +25,6 @@ function ListaViagemComponent() {
 
   useEffect(() => {
     const getViagens = async () => {
-      const token = localStorage.getItem("token");
       const res = await api.get("viagem/retornaViagens", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -37,7 +37,9 @@ function ListaViagemComponent() {
 
   async function deletarViagem(idViagem) {
     try {
-      const res = await api.delete("viagem/deletar/" + idViagem);
+      const res = await api.delete("viagem/deletar/" + idViagem, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (res.status === 200) {
         setListaViagem([...listaViagem]);
         setMessage("Viagem excluída com sucesso!");
@@ -67,9 +69,9 @@ function ListaViagemComponent() {
         <table className="table table-striped table-bordered">
           <thead>
             <tr>
-              <th> Destino</th>
-              <th> Início</th>
-              <th> Fim</th>
+              <th>Destino</th>
+              <th>Início</th>
+              <th>Fim</th>
               <th>Detalhe</th>
               <th>Deletar</th>
             </tr>

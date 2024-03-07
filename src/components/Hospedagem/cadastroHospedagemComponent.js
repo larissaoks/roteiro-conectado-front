@@ -9,6 +9,11 @@ function CadastroHospedagemComponent() {
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
+  const [nomeLocal, setnomeLocal] = useState(null);
+  const [checkIn, setcheckIn] = useState(null);
+  const [checkOut, setcheckOut] = useState(null);
+  
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const auth = async () => {
@@ -21,9 +26,13 @@ function CadastroHospedagemComponent() {
     auth();
   }, []);
 
+  async function resgatarCEP(cep){
+
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
+    
   };
   return (
     <div
