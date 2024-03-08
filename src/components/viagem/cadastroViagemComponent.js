@@ -31,14 +31,13 @@ function CadastroViagemComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    console.log(token, destino, dtInicio, dtFim);
     try {
       const res = await api.post(
         "viagem/criar",
         {
-          destino,
           dtInicio,
           dtFim,
+          destino,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
