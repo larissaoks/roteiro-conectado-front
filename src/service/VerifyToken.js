@@ -1,4 +1,4 @@
-import api from "./service/service";
+import api from "./service";
 
 export async function verifyToken() {
   try {

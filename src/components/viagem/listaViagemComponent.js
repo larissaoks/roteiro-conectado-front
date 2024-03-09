@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../service/service";
 import { Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { verifyToken } from "../../VerifyToken";
+import { verifyToken } from "../../service/VerifyToken";
 import { Trash, Search } from "react-bootstrap-icons";
 
 function ListaViagemComponent() {

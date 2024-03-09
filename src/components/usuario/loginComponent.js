@@ -34,7 +34,7 @@ function LoginComponent() {
       }
     } catch (err) {
       if (err.response && err.response.status === 403) {
-        setErrorMessage("Email ou senha não correspondem");
+        setErrorMessage("Email/Senha incorretos ou não existem");
       } else if (err.response && err.response.status === 400) {
         setErrorMessage("Preencha o(s) campo(s) vazio(s)!");
       } else {

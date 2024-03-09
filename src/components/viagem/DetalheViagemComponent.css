@@ -1,0 +1,23 @@
+.activity-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.activity-card:hover {
+    background-color: #e9ecef;
+}
+
+.activity-title {
+    color: #007bff;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+.card-past .activity-card {
+    background-color: #d3d3d3; /* Altere para a cor desejada */
+    opacity: 0.7; /* Reduz a opacidade para um efeito de escurecimento */
+}

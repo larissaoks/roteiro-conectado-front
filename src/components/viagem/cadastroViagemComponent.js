@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../../service/service";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { verifyToken } from "../../VerifyToken";
+import { verifyToken } from "../../service/VerifyToken";
 
 function CadastroViagemComponent() {
   const history = useNavigate();
