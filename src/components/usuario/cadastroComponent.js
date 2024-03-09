@@ -19,7 +19,7 @@ function CadastroComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("usuario/criar", {
+      const res = await api.post("hospedagem/criar", {
         nome,
         email,
         senha,
