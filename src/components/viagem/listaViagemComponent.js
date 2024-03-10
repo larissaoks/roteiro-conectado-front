@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import api from "../../service/service";
-import { Alert } from "react-bootstrap";
+import { api } from "../../service/service";
+import { Alert, Modal, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
 import { Trash, Search } from "react-bootstrap-icons";
 
 function ListaViagemComponent() {
   const history = useNavigate();
+
   const [listaViagem, setListaViagem] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -33,7 +38,7 @@ function ListaViagemComponent() {
       }
     };
     getViagens();
-  }, []);
+  });
 
   async function deletarViagem(idViagem) {
     try {
@@ -89,11 +94,33 @@ function ListaViagemComponent() {
                   />
                 </td>
                 <td>
-                  <Trash
-                    size={24}
-                    color="red"
-                    onClick={() => deletarViagem(list.idViagem)}
-                  />
+                  <Trash size={24} color="red" onClick={handleShow} />
+                  <Modal
+                    show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Deletar</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Você tem certeza que deseja excluir a viagem para{" "}
+                      <b>{list.destino}</b>? Esta ação não pode ser desfeita e
+                      apagará todo planejamento criado para esta viagem.
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Cancelar
+                      </Button>
+                      <Button
+                        variant="danger"
+                        onClick={() => deletarViagem(list.idViagem)}
+                      >
+                        Deletar
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </td>
               </tr>
             ))}
