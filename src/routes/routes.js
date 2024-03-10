@@ -6,6 +6,8 @@ import DetalheViagemComponent from "../components/viagem/detalheViagemComponent"
 import ListaViagemComponent from "../components/viagem/listaViagemComponent";
 import CadastroHospedagemComponent from "../components/Hospedagem/cadastroHospedagemComponent";
 import { Routes, Route } from "react-router-dom";
+import CadastroRoteiroComponent from "../components/Roteiro/cadastroRoteiroComponent";
+import CadastroPassagemComponent from "../components/Passagem/cadastroPassagemComponent";
 
 function Rotas() {
   return (
@@ -18,6 +20,11 @@ function Rotas() {
       <Route
         path={"/cadastroHospedagem"}
         element={<CadastroHospedagemComponent />}
+      />
+      <Route path={"/cadastroRoteiro"} element={<CadastroRoteiroComponent />} />
+      <Route
+        path={"/cadastroPassagem"}
+        element={<CadastroPassagemComponent />}
       />
       <Route path={"/unauthorized"} element={<Unauthorized />} />
     </Routes>

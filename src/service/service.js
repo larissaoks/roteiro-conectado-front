@@ -4,4 +4,8 @@ const api = axios.create({
   baseURL: "http://localhost:9091/",
 });
 
-export default api;
+const cepApi = axios.create({
+  baseURL: "https://viacep.com.br/ws/",
+});
+
+export { api, cepApi };
