@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import api from "../../service/service";
+import React, { useState, useEffect } from "react";
+import { api } from "../../service/service";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,13 @@ function LoginComponent() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      history("/home"); 
+    }
+  }, [history]);
 
   const onChangeEmail = (e) => setEmail(e.target.value);
   const onChangeSenha = (e) => setSenha(e.target.value);

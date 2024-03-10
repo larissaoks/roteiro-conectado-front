@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../../service/service";
+import {api} from "../../service/service";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
