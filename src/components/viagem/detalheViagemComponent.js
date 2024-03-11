@@ -114,7 +114,6 @@ function DetalheViagemComponent() {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.status === 200) {
-        setViagem({ ...viagem });
         handleClose();
         setMessage("Passagem excluída com sucesso!");
       }
@@ -156,7 +155,6 @@ function DetalheViagemComponent() {
       });
       if (res.status === 200) {
         handleClose();
-        setViagem({ ...viagem });
         setMessage("Hospedagem excluída com sucesso!");
       }
     } catch (err) {
@@ -356,8 +354,7 @@ function DetalheViagemComponent() {
                         <strong>Endereço:</strong> {atividade.endereco}
                       </p>
                       <p className="mb-1">
-                        <FaPen />{" "}
-                        <FaTrash color="red" onClick={() => handleShow} />
+                        <FaPen /> <FaTrash color="red" onClick={handleShow} />
                       </p>
                       <Modal
                         show={show}

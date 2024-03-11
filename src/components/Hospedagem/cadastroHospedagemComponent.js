@@ -58,7 +58,6 @@ function CadastroHospedagemComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
     try {
       const res = await api.post(
         "hospedagem/criar",
