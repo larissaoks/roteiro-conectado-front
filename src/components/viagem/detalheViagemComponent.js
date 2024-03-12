@@ -30,11 +30,19 @@ function DetalheViagemComponent() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
   const [show, setShow] = useState(false);
+  const [selectedAtividade, setSelectedAtividade] = useState({
+    id: null,
+    tipo: null,
+  });
+
   const token = localStorage.getItem("token");
   const idViagem = location.state.idViagem;
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (id, tipo) => {
+    setSelectedAtividade({ id, tipo });
+    setShow(true);
+  };
 
   useEffect(() => {
     const auth = async () => {
@@ -116,6 +124,7 @@ function DetalheViagemComponent() {
       if (res.status === 200) {
         handleClose();
         setMessage("Passagem excluída com sucesso!");
+        window.location.reload();
       }
     } catch (err) {
       if (err.response && err.response.status === 204) {
@@ -136,6 +145,7 @@ function DetalheViagemComponent() {
       if (res.status === 200) {
         handleClose();
         setMessage("Roteiro excluído com sucesso!");
+        window.location.reload();
       }
     } catch (err) {
       if (err.response && err.response.status === 204) {
@@ -156,6 +166,7 @@ function DetalheViagemComponent() {
       if (res.status === 200) {
         handleClose();
         setMessage("Hospedagem excluída com sucesso!");
+        window.location.reload();
       }
     } catch (err) {
       if (err.response && err.response.status === 204) {
@@ -292,36 +303,14 @@ function DetalheViagemComponent() {
                         )}
                       </p>
                       <p className="mb-1">
-                        <FaPen /> <FaTrash color="red" onClick={handleShow} />
+                        <FaPen />{" "}
+                        <FaTrash
+                          color="red"
+                          onClick={() =>
+                            handleShow(atividade.idPassagem, "Passagem")
+                          }
+                        />
                       </p>
-                      <Modal
-                        show={show}
-                        onHide={handleClose}
-                        backdrop="static"
-                        keyboard={false}
-                      >
-                        <Modal.Header closeButton>
-                          <Modal.Title>Deletar</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          Você tem certeza que deseja excluir a passagem para{" "}
-                          <b>{atividade.destino}</b>? Esta ação não pode ser
-                          desfeita!
-                        </Modal.Body>
-                        <Modal.Footer>
-                          <Button variant="secondary" onClick={handleClose}>
-                            Cancelar
-                          </Button>
-                          <Button
-                            variant="danger"
-                            onClick={() =>
-                              deletarPassagem(atividade.idPassagem)
-                            }
-                          >
-                            Deletar
-                          </Button>
-                        </Modal.Footer>
-                      </Modal>
                       <p className="mb-1">
                         <FaPlusCircle
                           size={16}
@@ -354,36 +343,14 @@ function DetalheViagemComponent() {
                         <strong>Endereço:</strong> {atividade.endereco}
                       </p>
                       <p className="mb-1">
-                        <FaPen /> <FaTrash color="red" onClick={handleShow} />
+                        <FaPen />{" "}
+                        <FaTrash
+                          color="red"
+                          onClick={() =>
+                            handleShow(atividade.idHospedagem, "Hospedagem")
+                          }
+                        />
                       </p>
-                      <Modal
-                        show={show}
-                        onHide={handleClose}
-                        backdrop="static"
-                        keyboard={false}
-                      >
-                        <Modal.Header closeButton>
-                          <Modal.Title>Deletar</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          Você tem certeza que deseja excluir a hospedagem{" "}
-                          <b>{atividade.nome}</b>? Esta ação não pode ser
-                          desfeita!
-                        </Modal.Body>
-                        <Modal.Footer>
-                          <Button variant="secondary" onClick={handleClose}>
-                            Cancelar
-                          </Button>
-                          <Button
-                            variant="danger"
-                            onClick={() =>
-                              deletarHospedagem(atividade.idHospedagem)
-                            }
-                          >
-                            Deletar
-                          </Button>
-                        </Modal.Footer>
-                      </Modal>
                       <p className="mb-1">
                         <FaPlusCircle
                           size={16}
@@ -409,34 +376,14 @@ function DetalheViagemComponent() {
                         )}
                       </p>
                       <p className="mb-1">
-                        <FaPen /> <FaTrash color="red" onClick={handleShow} />
+                        <FaPen />{" "}
+                        <FaTrash
+                          color="red"
+                          onClick={() =>
+                            handleShow(atividade.idRoteiro, "Roteiro")
+                          }
+                        />
                       </p>
-                      <Modal
-                        show={show}
-                        onHide={handleClose}
-                        backdrop="static"
-                        keyboard={false}
-                      >
-                        <Modal.Header closeButton>
-                          <Modal.Title>Deletar</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          Você tem certeza que deseja excluir o roteiro para{" "}
-                          <b>{atividade.local}</b>? Esta ação não pode ser
-                          desfeita!
-                        </Modal.Body>
-                        <Modal.Footer>
-                          <Button variant="secondary" onClick={handleClose}>
-                            Cancelar
-                          </Button>
-                          <Button
-                            variant="danger"
-                            onClick={() => deletarRoteiro(atividade.idRoteiro)}
-                          >
-                            Deletar
-                          </Button>
-                        </Modal.Footer>
-                      </Modal>
                       <p className="mb-1">
                         <FaPlusCircle
                           size={16}
@@ -448,6 +395,54 @@ function DetalheViagemComponent() {
                 </Card.Body>
               </Card>
             </Col>
+            <Modal
+              show={show}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={false}
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Deletar</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {selectedAtividade && selectedAtividade.tipo && (
+                  <>
+                    Você tem certeza que deseja excluir esta{" "}
+                    {selectedAtividade.tipo.toLowerCase()} ? Esta ação não pode
+                    ser desfeita!
+                  </>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Cancelar
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    switch (selectedAtividade?.tipo) {
+                      case "Passagem":
+                        deletarPassagem(selectedAtividade.id);
+                        break;
+                      case "Hospedagem":
+                        deletarHospedagem(selectedAtividade.id);
+                        break;
+                      case "Roteiro":
+                        deletarRoteiro(selectedAtividade.id);
+                        break;
+                      default:
+                        console.log(
+                          "Tipo não identificado:",
+                          selectedAtividade?.tipo
+                        );
+                        break;
+                    }
+                  }}
+                >
+                  Deletar
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </Row>
         ))}
     </Container>

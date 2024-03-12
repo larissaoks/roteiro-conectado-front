@@ -78,7 +78,7 @@ function CadastroHospedagemComponent() {
         }
       );
       if (res.status === 200) {
-        setMessage("Passagem cadastrada com sucesso!");
+        setMessage("Hospedagem cadastrada com sucesso!");
         setTimeout(() => {
           detalheViagem(idViagem);
         }, 1000);
