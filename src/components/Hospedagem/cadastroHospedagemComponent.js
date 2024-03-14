@@ -58,6 +58,12 @@ function CadastroHospedagemComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (new Date(checkOut) <= new Date(checkIn)) {
+      setErrorMessage(
+        "A data de Checkout deve ser posterior à data de Checkin"
+      );
+      return;
+    }
     try {
       const res = await api.post(
         "hospedagem/criar",

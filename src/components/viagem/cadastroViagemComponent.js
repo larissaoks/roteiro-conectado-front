@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {api} from "../../service/service";
+import { api } from "../../service/service";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
@@ -30,6 +30,12 @@ function CadastroViagemComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (new Date(dtFim) <= new Date(dtInicio)) {
+      setErrorMessage(
+        "A data final deve ser posterior à data de início"
+      );
+      return;
+    }
     const token = localStorage.getItem("token");
     try {
       const res = await api.post(
