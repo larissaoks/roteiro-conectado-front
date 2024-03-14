@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {api} from "../../service/service";
+import { api } from "../../service/service";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ function CadastroComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("hospedagem/criar", {
+      const res = await api.post("usuario/criar", {
         nome,
         email,
         senha,
