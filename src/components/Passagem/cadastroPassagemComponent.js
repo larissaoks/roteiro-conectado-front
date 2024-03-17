@@ -91,7 +91,7 @@ function CadastroPassagemComponent() {
         {message && <Alert variant={"success"}>{message}</Alert>}
         <Form.Group controlId="formBasicOrigem">
           <Form.Label>Origem</Form.Label>
-          <Form.Control type="text" value={origem} onChange={onChangeOrigem} />
+          <Form.Control type="text" value={origem} onChange={onChangeOrigem} required/>
         </Form.Group>
         <br />
         <br />
@@ -101,6 +101,7 @@ function CadastroPassagemComponent() {
             type="text"
             value={destino}
             onChange={onChangeDestino}
+            required
           />
         </Form.Group>
         <br />
@@ -112,13 +113,14 @@ function CadastroPassagemComponent() {
             onChange={onChangeDataHorario}
             type="datetime-local"
             step="1"
+            required
           />
         </Form.Group>
         <br />
         <br />
         <Form.Group className="mb-3" controlId="formBasicLocal">
           <Form.Label>Tipo de Passagem</Form.Label>
-          <Form.Select value={tipo} onChange={onChangeTipo} type="text">
+          <Form.Select value={tipo} onChange={onChangeTipo} type="text" required>
             <option>Selecione uma das opções</option>
             <option value="0">Ônibus</option>
             <option value="1">Trem</option>

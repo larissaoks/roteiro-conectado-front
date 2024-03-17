@@ -4,7 +4,6 @@ import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
 
-
 function CadastroRoteiroComponent() {
   const history = useNavigate();
   const location = useLocation();
@@ -87,7 +86,12 @@ function CadastroRoteiroComponent() {
         {message && <Alert variant={"success"}>{message}</Alert>}
         <Form.Group controlId="formBasicDia">
           <Form.Label>Dia</Form.Label>
-          <Form.Control type="number" value={dia} onChange={onChangeDia} />
+          <Form.Control
+            type="number"
+            value={dia}
+            onChange={onChangeDia}
+            required
+          />
         </Form.Group>
         <br />
         <br />
@@ -99,13 +103,19 @@ function CadastroRoteiroComponent() {
             type="datetime-local"
             step="1"
             min={new Date().toLocaleDateString()}
+            required
           />
         </Form.Group>
         <br />
         <br />
         <Form.Group className="mb-3" controlId="formBasicLocal">
           <Form.Label>Local</Form.Label>
-          <Form.Control value={local} onChange={onChangeLocal} type="text" />
+          <Form.Control
+            value={local}
+            onChange={onChangeLocal}
+            type="text"
+            required
+          />
         </Form.Group>
         <br />
         <br />

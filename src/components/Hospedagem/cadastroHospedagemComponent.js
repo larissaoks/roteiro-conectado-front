@@ -127,12 +127,13 @@ function CadastroHospedagemComponent() {
             type="text"
             value={nomeLocal}
             onChange={onChangeNomeLocal}
+            required
           />
         </Form.Group>
         <Form.Group controlId="formBasicDestino">
           <Form.Label>CEP</Form.Label>
           <InputGroup>
-            <Form.Control type="text" value={cep} onChange={onChangeCep} />
+            <Form.Control type="text" value={cep} onChange={onChangeCep} required/>
             <Button variant="light">
               <Search size={16} onClick={() => buscarCEP(cep)} />
             </Button>
@@ -145,6 +146,7 @@ function CadastroHospedagemComponent() {
             type="text"
             value={logradouro}
             onChange={onChangeLogradouro}
+            required
           />
         </Form.Group>
 
@@ -166,6 +168,7 @@ function CadastroHospedagemComponent() {
             type="datetime-local"
             step="1"
             min={new Date().toLocaleDateString()}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckOut">
@@ -176,6 +179,7 @@ function CadastroHospedagemComponent() {
             type="datetime-local"
             step="1"
             min={new Date().toLocaleDateString()}
+            required
           />
         </Form.Group>
         <Button variant="light" onClick={() => detalheViagem(idViagem)}>
