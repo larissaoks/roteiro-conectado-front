@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../../service/service";
-import { Alert, Modal, Button } from "react-bootstrap";
+import { Alert, Modal, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
 import { Trash, Search } from "react-bootstrap-icons";
@@ -12,6 +12,7 @@ function ListaViagemComponent() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -35,6 +36,7 @@ function ListaViagemComponent() {
       });
       if (res.status === 200) {
         setListaViagem(res.data.Viagens);
+        setLoading(false);
       }
     };
     getViagens();
@@ -68,7 +70,7 @@ function ListaViagemComponent() {
     <div>
       <h1>Minhas Viagens</h1>
       <br></br>
-      <div className="row">
+      {loading ? (<Spinner animation="border" variant="primary" />) : (<div className="row">
         {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
         {message && <Alert variant={"success"}>{message}</Alert>}
         <table className="table table-striped table-bordered">
@@ -126,7 +128,9 @@ function ListaViagemComponent() {
             ))}
           </tbody>
         </table>
-      </div>
+      </div>)}
+      
+      
     </div>
   );
 }
