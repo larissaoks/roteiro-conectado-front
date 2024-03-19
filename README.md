@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Running Dockerfile
+
+docker build --build-arg REACT_APP_URL_BACK_END="http://localhost:9091/" --build-arg REACT_APP_URL_VIA_CEP_API="https://viacep.com.br/ws/" -t roteiro-conectado-front .
+
+docker run -p 3000:80 roteiro-conectado-front
+
 ## Available Scripts
 
 In the project directory, you can run:

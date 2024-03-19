@@ -5,8 +5,6 @@ import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import CadastroViagemComponent from "../src/components/viagem/cadastroViagemComponent";
 import { fireEvent } from "@testing-library/react";
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
