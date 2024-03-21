@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { cepApi } from "../../service/service";
-import { Button, Form, Alert, InputGroup } from "react-bootstrap";
+import { Button, Form, Alert, InputGroup, Spinner } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
 import { Search } from "react-bootstrap-icons";
@@ -19,6 +19,7 @@ function CadastroHospedagemComponent() {
   const [uf, setUf] = useState(null);
   const [checkIn, setCheckIn] = useState(null);
   const [checkOut, setCheckOut] = useState(null);
+  const [loading, setLoading] = useState(false);
   const idViagem = location.state.idViagem;
 
   const onChangeNomeLocal = (e) => setnomeLocal(e.target.value);
@@ -42,10 +43,12 @@ function CadastroHospedagemComponent() {
 
   async function buscarCEP(cep) {
     try {
+      setLoading(true);
       const json = await cepApi.get(`${cep}/json`);
       montarEndereco(json.data);
     } catch (err) {
       console.log("erro: ", err);
+      setLoading(false);
       setErrorMessage("Erro com API de CEP. Contate o Administrador da página");
     }
   }
@@ -54,6 +57,7 @@ function CadastroHospedagemComponent() {
     setLogradouro(json.logradouro);
     setCidade(json.localidade);
     setUf(json.uf);
+    setLoading(false);
   }
 
   const handleSubmit = async (e) => {
@@ -133,11 +137,17 @@ function CadastroHospedagemComponent() {
         <Form.Group controlId="formBasicDestino">
           <Form.Label>CEP</Form.Label>
           <InputGroup>
-            <Form.Control type="text" value={cep} onChange={onChangeCep} required/>
+            <Form.Control
+              type="text"
+              value={cep}
+              onChange={onChangeCep}
+              required
+            />
             <Button variant="light">
               <Search size={16} onClick={() => buscarCEP(cep)} />
             </Button>
           </InputGroup>
+          {loading ? <Spinner animation="border" variant="primary" /> : ""}
         </Form.Group>
 
         <Form.Group controlId="formBasicDestino">

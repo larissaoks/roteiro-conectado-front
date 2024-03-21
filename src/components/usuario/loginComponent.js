@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../../service/service";
-import { Button, Form, Alert } from "react-bootstrap";
+import { Button, Form, Alert, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function LoginComponent() {
@@ -13,7 +13,7 @@ function LoginComponent() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      history("/home"); 
+      history("/home");
     }
   }, [history]);
 
@@ -60,35 +60,45 @@ function LoginComponent() {
         alignItems: "center",
       }}
     >
-      <Form
-        onSubmit={handleSubmit}
-        style={{ width: "30%", height: "50%", marginTop: "5%" }}
+      <Card
+        className="activity-card"
+        style={{ marginTop: "5%", width: "30%", height: "50%" }}
       >
-        <h2>Login</h2>
-        {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            value={email}
-            onChange={onChangeEmail}
-            type="email"
-            placeholder="email@example.com"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Senha</Form.Label>
-          <Form.Control
-            value={senha}
-            onChange={onChangeSenha}
-            type="password"
-            placeholder="Senha"
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
-        <br /> <br />
-      </Form>
+        <Card.Title style={{ marginTop: "0.5%" }}>
+          <h2>Login</h2>
+        </Card.Title>
+        <Card.Body>
+          <Form
+            onSubmit={handleSubmit}
+            //style={{ width: "30%", height: "50%", marginTop: "5%" }}
+          >
+            {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                value={email}
+                onChange={onChangeEmail}
+                type="email"
+                placeholder="email@example.com"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Senha</Form.Label>
+              <Form.Control
+                value={senha}
+                onChange={onChangeSenha}
+                type="password"
+                placeholder="Senha"
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Login
+            </Button>
+            <br /> <br />
+          </Form>
+        </Card.Body>
+      </Card>
+      <br />
     </div>
   );
 }
