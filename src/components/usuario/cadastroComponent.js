@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../../service/service";
-import { Button, Form, Alert } from "react-bootstrap";
+import { Button, Form, Alert, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function CadastroComponent() {
@@ -11,7 +11,16 @@ function CadastroComponent() {
   const [senha, setSenha] = useState("");
   const [confirmaSenha, setConfirmaSenha] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-  const [message, setMessage] = useState(null);
+  //const [message, setMessage] = useState(null);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    setTimeout(() => {
+      history("/");
+    }, 1000);
+  };
+  const handleShow = () => setShow(true);
 
   const onChangeNome = (e) => setNome(e.target.value);
   const onChangeEmail = (e) => setEmail(e.target.value);
@@ -33,10 +42,7 @@ function CadastroComponent() {
         senha,
       });
       if (res.status === 200) {
-        setMessage("Cadastro realizado com sucesso!");
-        setTimeout(() => {
-          history("/");
-        }, 1000);
+        handleShow();
       }
     } catch (err) {
       if (err.response && err.response.status === 400) {
@@ -62,7 +68,7 @@ function CadastroComponent() {
       >
         <h2>Cadastro</h2>
         {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
-        {message && <Alert variant={"success"}>{message}</Alert>}
+        {/* {message && <Alert variant={"success"}>{message}</Alert>} */}
         <Form.Group controlId="formBasicName">
           <Form.Label>Nome</Form.Label>
           <Form.Control
@@ -114,6 +120,21 @@ function CadastroComponent() {
           Voltar
         </Button>
       </Form>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Sucesso!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Para confirmar o seu cadastro e ter acesso ao site, clique no link
+          enviado para o {email} !
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Ok!
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

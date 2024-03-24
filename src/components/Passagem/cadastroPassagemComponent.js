@@ -11,17 +11,15 @@ function CadastroPassagemComponent() {
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [dataHorario, setDataHorario] = useState("");
-  const [tipo, setTipo] = useState("");
+  const [codigoPassagem, setCodigoPassagem] = useState();
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
   const idViagem = location.state.idViagem;
 
   const onChangeOrigem = (e) => setOrigem(e.target.value);
   const onChangeDestino = (e) => setDestino(e.target.value);
-  const onChangeDataHorario = (e) => {
-    setDataHorario(e.target.value);
-  };
-  const onChangeTipo = (e) => setTipo(e.target.value);
+  const onChangeDataHorario = (e) => setDataHorario(e.target.value);
+  const onChangeCodigoPassagem = (e) => setCodigoPassagem(e.target.value);
 
   useEffect(() => {
     const auth = async () => {
@@ -45,7 +43,7 @@ function CadastroPassagemComponent() {
           origem,
           destino,
           dataHorario,
-          tipo,
+          codigoPassagem,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -91,7 +89,12 @@ function CadastroPassagemComponent() {
         {message && <Alert variant={"success"}>{message}</Alert>}
         <Form.Group controlId="formBasicOrigem">
           <Form.Label>Origem</Form.Label>
-          <Form.Control type="text" value={origem} onChange={onChangeOrigem} required/>
+          <Form.Control
+            type="text"
+            value={origem}
+            onChange={onChangeOrigem}
+            required
+          />
         </Form.Group>
         <br />
         <br />
@@ -120,12 +123,16 @@ function CadastroPassagemComponent() {
         <br />
         <Form.Group className="mb-3" controlId="formBasicLocal">
           <Form.Label>Tipo de Passagem</Form.Label>
-          <Form.Select value={tipo} onChange={onChangeTipo} type="text" required>
+          <Form.Select
+            aria-label="Default select example"
+            value={codigoPassagem}
+            onChange={onChangeCodigoPassagem}
+          >
             <option>Selecione uma das opções</option>
-            <option value="0">Ônibus</option>
-            <option value="1">Trem</option>
-            <option value="2">Avião</option>
-            <option value="3">Navio</option>
+            <option value={0}>Ônibus</option>
+            <option value={1}>Trem</option>
+            <option value={2}>Avião</option>
+            <option value={3}>Navio</option>
           </Form.Select>
         </Form.Group>
         <br />
