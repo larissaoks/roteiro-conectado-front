@@ -8,6 +8,7 @@ import CadastroHospedagemComponent from "../components/Hospedagem/cadastroHosped
 import { Routes, Route } from "react-router-dom";
 import CadastroRoteiroComponent from "../components/Roteiro/cadastroRoteiroComponent";
 import CadastroPassagemComponent from "../components/Passagem/cadastroPassagemComponent";
+import EditaViagemComponent from "../components/viagem/editaViagemComponent";
 
 function Rotas() {
   return (
@@ -17,6 +18,7 @@ function Rotas() {
       <Route path={"/home"} element={<ListaViagemComponent />} />
       <Route path={"/cadastroViagem"} element={<CadastroViagemComponent />} />
       <Route path={"/detalheViagem"} element={<DetalheViagemComponent />} />
+      <Route path={"/editaViagem"} element={<EditaViagemComponent />} />
       <Route
         path={"/cadastroHospedagem"}
         element={<CadastroHospedagemComponent />}

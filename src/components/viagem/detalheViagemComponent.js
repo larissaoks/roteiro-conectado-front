@@ -116,6 +116,12 @@ function DetalheViagemComponent() {
     }
   }
 
+  async function editarViagem(idViagem, destino, dteInicio, dteFim) {
+    history("/editaViagem", {
+      state: { idViagem, destino, dteInicio, dteFim },
+    });
+  }
+
   async function deletarPassagem(id) {
     try {
       const res = await api.delete("passagem/deletar/" + id, {
@@ -200,7 +206,16 @@ function DetalheViagemComponent() {
                   {format(new Date(viagem.dteFim), "dd/MM/yyyy")}
                 </p>
                 <p className="mb-1">
-                  <FaPen />
+                  <FaPen
+                    onClick={() =>
+                      editarViagem(
+                        idViagem,
+                        viagem.destino,
+                        viagem.dteInicio,
+                        viagem.dteFim
+                      )
+                    }
+                  />
                 </p>
               </div>
             </Card.Body>
