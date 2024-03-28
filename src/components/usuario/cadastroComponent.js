@@ -29,6 +29,7 @@ function CadastroComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
 
     if (senha !== confirmaSenha) {
       setErrorMessage("As senhas não conferem!");
@@ -47,6 +48,8 @@ function CadastroComponent() {
     } catch (err) {
       if (err.response && err.response.status === 400) {
         setErrorMessage("Preencha o(s) campo(s) vazio(s)!");
+      } else if (err.response && err.response.status === 409) {
+        setErrorMessage("Conta já existe!");
       } else {
         setErrorMessage(
           "Erro interno do servidor. Contate o Administrador da página"
@@ -68,7 +71,7 @@ function CadastroComponent() {
       >
         <h2>Cadastro</h2>
         {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
-        {/* {message && <Alert variant={"success"}>{message}</Alert>} */}
+        
         <Form.Group controlId="formBasicName">
           <Form.Label>Nome</Form.Label>
           <Form.Control

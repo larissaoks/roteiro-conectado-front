@@ -122,6 +122,24 @@ function DetalheViagemComponent() {
     });
   }
 
+  async function editarHospedagem(atividade) {
+    history("/editaHospedagem", {
+      state: { atividade, idViagem },
+    });
+  }
+
+  async function editarRoteiro(atividade) {
+    history("/editaRoteiro", {
+      state: { atividade, idViagem },
+    });
+  }
+
+  async function editarPassagem(atividade) {
+    history("/editaPassagem", {
+      state: { atividade, idViagem },
+    });
+  }
+
   async function deletarPassagem(id) {
     try {
       const res = await api.delete("passagem/deletar/" + id, {
@@ -318,7 +336,7 @@ function DetalheViagemComponent() {
                         )}
                       </p>
                       <p className="mb-1">
-                        <FaPen />{" "}
+                        <FaPen onClick={() => editarPassagem(atividade)}/>{" "}
                         <FaTrash
                           color="red"
                           onClick={() =>
@@ -358,7 +376,7 @@ function DetalheViagemComponent() {
                         <strong>Endereço:</strong> {atividade.endereco}
                       </p>
                       <p className="mb-1">
-                        <FaPen />{" "}
+                        <FaPen onClick={() => editarHospedagem(atividade)} />{" "}
                         <FaTrash
                           color="red"
                           onClick={() =>
@@ -391,7 +409,7 @@ function DetalheViagemComponent() {
                         )}
                       </p>
                       <p className="mb-1">
-                        <FaPen />{" "}
+                        <FaPen onClick={() => editarRoteiro(atividade)} />{" "}
                         <FaTrash
                           color="red"
                           onClick={() =>

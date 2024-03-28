@@ -9,11 +9,16 @@ import { Routes, Route } from "react-router-dom";
 import CadastroRoteiroComponent from "../components/Roteiro/cadastroRoteiroComponent";
 import CadastroPassagemComponent from "../components/Passagem/cadastroPassagemComponent";
 import EditaViagemComponent from "../components/viagem/editaViagemComponent";
+import AtivaContaComponent from "../components/usuario/ativaContaComponent";
+import EditaHospedagemComponent from "../components/Hospedagem/editaHospedagemComponent";
+import EditaRoteiroComponent from "../components/Roteiro/editaRoteiroComponent";
+import EditaPassagemComponent from "../components/Passagem/editaPassagemComponent";
 
 function Rotas() {
   return (
     <Routes>
       <Route path={"/"} element={<LoginComponent />} />
+      <Route path={"/ativaConta/:token"} element={<AtivaContaComponent />} />
       <Route path={"/cadastro"} element={<CadastroComponent />} />
       <Route path={"/home"} element={<ListaViagemComponent />} />
       <Route path={"/cadastroViagem"} element={<CadastroViagemComponent />} />
@@ -23,11 +28,14 @@ function Rotas() {
         path={"/cadastroHospedagem"}
         element={<CadastroHospedagemComponent />}
       />
+      <Route path={"/editaHospedagem"} element={<EditaHospedagemComponent />} />
       <Route path={"/cadastroRoteiro"} element={<CadastroRoteiroComponent />} />
+      <Route path={"/editaRoteiro"} element={<EditaRoteiroComponent />} />
       <Route
         path={"/cadastroPassagem"}
         element={<CadastroPassagemComponent />}
       />
+      <Route path={"/editaPassagem"} element={<EditaPassagemComponent />} />
       <Route path={"/unauthorized"} element={<Unauthorized />} />
     </Routes>
   );
