@@ -44,6 +44,8 @@ function LoginComponent() {
         setErrorMessage("Email/Senha incorretos ou não existem");
       } else if (err.response && err.response.status === 400) {
         setErrorMessage("Preencha o(s) campo(s) vazio(s)!");
+      } else if (err.response && err.response.status === 401) {
+        setErrorMessage("Usuário não ativado");
       } else {
         setErrorMessage(
           "Erro interno do servidor. Contate o Administrador da página"
