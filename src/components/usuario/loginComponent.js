@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { api } from "../../service/service";
 import { Button, Form, Alert, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "../../util/getTokenFromLocalStorage";
 
 function LoginComponent() {
   const history = useNavigate();
@@ -11,7 +12,7 @@ function LoginComponent() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = getToken();
     if (token) {
       history("/home");
     }
@@ -46,6 +47,10 @@ function LoginComponent() {
         setErrorMessage("Preencha o(s) campo(s) vazio(s)!");
       } else if (err.response && err.response.status === 401) {
         setErrorMessage("Usuário não ativado");
+      } else if (err.response && err.response.status === 503) {
+        setErrorMessage(
+          "Serviço indisponível. Contate o Administrador da Página"
+        );
       } else {
         setErrorMessage(
           "Erro interno do servidor. Contate o Administrador da página"

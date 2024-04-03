@@ -3,6 +3,8 @@ import { api } from "../../service/service";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
+import { getToken } from "../../util/getTokenFromLocalStorage";
+
 
 function CadastroViagemComponent() {
   const history = useNavigate();
@@ -31,12 +33,10 @@ function CadastroViagemComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (new Date(dtFim) <= new Date(dtInicio)) {
-      setErrorMessage(
-        "A data final deve ser posterior à data de início"
-      );
+      setErrorMessage("A data final deve ser posterior à data de início");
       return;
     }
-    const token = localStorage.getItem("token");
+    const token = getToken();
     try {
       const res = await api.post(
         "viagem/criar",

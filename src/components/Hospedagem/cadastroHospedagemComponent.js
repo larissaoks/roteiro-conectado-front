@@ -5,6 +5,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
 import { Search } from "react-bootstrap-icons";
 import { api } from "../../service/service";
+import { getToken } from "../../util/getTokenFromLocalStorage";
+
 
 function CadastroHospedagemComponent() {
   const history = useNavigate();
@@ -28,7 +30,7 @@ function CadastroHospedagemComponent() {
   const onChangeCep = (e) => setCep(e.target.value);
   const onChangeLogradouro = (e) => setLogradouro(e.target.value);
 
-  const token = localStorage.getItem("token");
+  const token = getToken();
 
   useEffect(() => {
     const auth = async () => {

@@ -13,6 +13,7 @@ import AtivaContaComponent from "../components/usuario/ativaContaComponent";
 import EditaHospedagemComponent from "../components/Hospedagem/editaHospedagemComponent";
 import EditaRoteiroComponent from "../components/Roteiro/editaRoteiroComponent";
 import EditaPassagemComponent from "../components/Passagem/editaPassagemComponent";
+import DetalheUsuarioComponent from "../components/usuario/detalheUsuarioComponent";
 
 function Rotas() {
   return (
@@ -20,6 +21,7 @@ function Rotas() {
       <Route path={"/"} element={<LoginComponent />} />
       <Route path={"/ativaConta/:token"} element={<AtivaContaComponent />} />
       <Route path={"/cadastro"} element={<CadastroComponent />} />
+      <Route path={"/detalhePerfil"} element={<DetalheUsuarioComponent />} />
       <Route path={"/home"} element={<ListaViagemComponent />} />
       <Route path={"/cadastroViagem"} element={<CadastroViagemComponent />} />
       <Route path={"/detalheViagem"} element={<DetalheViagemComponent />} />

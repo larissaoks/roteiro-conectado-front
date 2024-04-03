@@ -3,6 +3,8 @@ import { api } from "../../service/service";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
+import { getToken } from "../../util/getTokenFromLocalStorage";
+
 
 function EditaPassagemComponent() {
   const history = useNavigate();
@@ -64,7 +66,7 @@ function EditaPassagemComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
+    const token = getToken();
     try {
       const res = await api.put(
         "passagem/alterar",

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Nav, Navbar, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../service/VerifyToken";
+import { getToken } from "../util/getTokenFromLocalStorage";
 
 function NavigationBar() {
   const history = useNavigate();
@@ -14,7 +15,7 @@ function NavigationBar() {
   };
 
   function verificaTokenVazio() {
-    const token = localStorage.getItem("token");
+    const token = getToken();
     if (token === null || token === undefined) {
       return true;
     } else {
@@ -63,6 +64,15 @@ function NavigationBar() {
               className="justify-content-end"
             >
               <Navbar.Text style={{ marginRight: "1%" }}>Bem vindo</Navbar.Text>
+              <Navbar.Brand href="detalhePerfil">
+                <img
+                  src="perfil.png"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                  alt="perfil"
+                />
+              </Navbar.Brand>
               <Nav.Link onClick={() => deslogar()}>Deslogar</Nav.Link>
             </Navbar.Collapse>
           </>

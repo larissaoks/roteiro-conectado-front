@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
 import { Search } from "react-bootstrap-icons";
 import { api } from "../../service/service";
+import { getToken } from "../../util/getTokenFromLocalStorage";
 
 function EditaHospedagemComponent() {
   const history = useNavigate();
@@ -23,7 +24,6 @@ function EditaHospedagemComponent() {
   const [loading, setLoading] = useState(false);
   const hospedagem = location.state.atividade;
   const idViagem = location.state.idViagem;
-  
 
   const onChangeNomeLocal = (e) => setnomeLocal(e.target.value);
   const onChangeCheckIn = (e) => setCheckIn(e.target.value);
@@ -31,7 +31,7 @@ function EditaHospedagemComponent() {
   const onChangeCep = (e) => setCep(e.target.value);
   const onChangeLogradouro = (e) => setLogradouro(e.target.value);
 
-  const token = localStorage.getItem("token");
+  const token = getToken();
 
   useEffect(() => {
     const auth = async () => {
@@ -49,7 +49,7 @@ function EditaHospedagemComponent() {
       setnomeLocal(hospedagem.nome);
       setCheckIn(hospedagem.checkIn);
       setCheckOut(hospedagem.checkOut);
-      setIdHospedagem(hospedagem.idHospedagem)
+      setIdHospedagem(hospedagem.idHospedagem);
       montarEndereco(hospedagem.endereco);
     };
     preencherHospedagem();

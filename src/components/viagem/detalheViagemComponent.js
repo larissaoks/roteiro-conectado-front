@@ -21,6 +21,7 @@ import {
   FaPlusCircle,
 } from "react-icons/fa";
 import "./DetalheViagemComponent.css";
+import { getToken } from "../../util/getTokenFromLocalStorage";
 
 function DetalheViagemComponent() {
   const history = useNavigate();
@@ -35,7 +36,7 @@ function DetalheViagemComponent() {
     tipo: null,
   });
 
-  const token = localStorage.getItem("token");
+  const token = getToken();
   const idViagem = location.state.idViagem;
 
   const handleClose = () => setShow(false);
@@ -336,7 +337,7 @@ function DetalheViagemComponent() {
                         )}
                       </p>
                       <p className="mb-1">
-                        <FaPen onClick={() => editarPassagem(atividade)}/>{" "}
+                        <FaPen onClick={() => editarPassagem(atividade)} />{" "}
                         <FaTrash
                           color="red"
                           onClick={() =>

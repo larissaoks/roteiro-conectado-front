@@ -4,6 +4,7 @@ import { Alert, Modal, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
 import { Trash, Search } from "react-bootstrap-icons";
+import { getToken } from "../../util/getTokenFromLocalStorage";
 
 function ListaViagemComponent() {
   const history = useNavigate();
@@ -16,7 +17,7 @@ function ListaViagemComponent() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const token = localStorage.getItem("token");
+  const token = getToken();
 
   useEffect(() => {
     const auth = async () => {
@@ -70,67 +71,69 @@ function ListaViagemComponent() {
     <div>
       <h1>Minhas Viagens</h1>
       <br></br>
-      {loading ? (<Spinner animation="border" variant="primary" />) : (<div className="row">
-        {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
-        {message && <Alert variant={"success"}>{message}</Alert>}
-        <table className="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Destino</th>
-              <th>Início</th>
-              <th>Fim</th>
-              <th>Detalhe</th>
-              <th>Deletar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listaViagem.map((list) => (
-              <tr key={list.idViagem}>
-                <td>{list.destino}</td>
-                <td>{list.dteInicio}</td>
-                <td>{list.dteFim}</td>
-                <td>
-                  <Search
-                    size={24}
-                    onClick={() => detalheViagem(list.idViagem)}
-                  />
-                </td>
-                <td>
-                  <Trash size={24} color="red" onClick={handleShow} />
-                  <Modal
-                    show={show}
-                    onHide={handleClose}
-                    backdrop="static"
-                    keyboard={false}
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>Deletar</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      Você tem certeza que deseja excluir a viagem para{" "}
-                      <b>{list.destino}</b>? Esta ação não pode ser desfeita e
-                      apagará todo planejamento criado para esta viagem.
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={handleClose}>
-                        Cancelar
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => deletarViagem(list.idViagem)}
-                      >
-                        Deletar
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
-                </td>
+      {loading ? (
+        <Spinner animation="border" variant="primary" />
+      ) : (
+        <div className="row">
+          {errorMessage && <Alert variant={"danger"}>{errorMessage}</Alert>}
+          {message && <Alert variant={"success"}>{message}</Alert>}
+          <table className="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Destino</th>
+                <th>Início</th>
+                <th>Fim</th>
+                <th>Detalhe</th>
+                <th>Deletar</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>)}
-      
-      
+            </thead>
+            <tbody>
+              {listaViagem.map((list) => (
+                <tr key={list.idViagem}>
+                  <td>{list.destino}</td>
+                  <td>{list.dteInicio}</td>
+                  <td>{list.dteFim}</td>
+                  <td>
+                    <Search
+                      size={24}
+                      onClick={() => detalheViagem(list.idViagem)}
+                    />
+                  </td>
+                  <td>
+                    <Trash size={24} color="red" onClick={handleShow} />
+                    <Modal
+                      show={show}
+                      onHide={handleClose}
+                      backdrop="static"
+                      keyboard={false}
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>Deletar</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Você tem certeza que deseja excluir a viagem para{" "}
+                        <b>{list.destino}</b>? Esta ação não pode ser desfeita e
+                        apagará todo planejamento criado para esta viagem.
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          Cancelar
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => deletarViagem(list.idViagem)}
+                        >
+                          Deletar
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

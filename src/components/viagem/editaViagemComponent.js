@@ -3,6 +3,8 @@ import { api } from "../../service/service";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
+import { getToken } from "../../util/getTokenFromLocalStorage";
+
 
 function EditaViagemComponent() {
   const history = useNavigate();
@@ -47,7 +49,7 @@ function EditaViagemComponent() {
       setErrorMessage("A data final deve ser posterior à data de início");
       return;
     }
-    const token = localStorage.getItem("token");
+    const token = getToken();
     try {
       const res = await api.put(
         "viagem/alterar",
