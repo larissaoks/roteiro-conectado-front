@@ -28,7 +28,7 @@ function ListaViagemComponent() {
       }
     };
     auth();
-  });
+  }, [history]);
 
   useEffect(() => {
     const getViagens = async () => {
@@ -41,7 +41,7 @@ function ListaViagemComponent() {
       }
     };
     getViagens();
-  });
+  },[token]);
 
   async function deletarViagem(idViagem) {
     try {
