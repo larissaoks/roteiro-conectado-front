@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../../service/service";
-import { Button, Spinner, Modal } from "react-bootstrap";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { Spinner, Modal } from "react-bootstrap";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaTimesCircle } from "react-icons/fa";
 
 function AtivaContaComponent() {
   const history = useNavigate();
   const location = useLocation();
-  const token = location.pathname.slice(12);
+  const token = location.pathname.split("/")[2];
 
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);

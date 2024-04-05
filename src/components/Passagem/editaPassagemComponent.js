@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { verifyToken } from "../../service/VerifyToken";
 import { getToken } from "../../util/getTokenFromLocalStorage";
 
-
 function EditaPassagemComponent() {
   const history = useNavigate();
   const location = useLocation();
@@ -18,7 +17,6 @@ function EditaPassagemComponent() {
   const [message, setMessage] = useState(null);
   const idViagem = location.state.idViagem;
   const passagem = location.state.atividade;
-  console.log(passagem);
   const idPassagem = location.state.atividade.idPassagem;
 
   const onChangeOrigem = (e) => setOrigem(e.target.value);
@@ -60,6 +58,8 @@ function EditaPassagemComponent() {
         break;
       case "NAVIO":
         setCodigoPassagem(3);
+        break;
+      default:
         break;
     }
   }
